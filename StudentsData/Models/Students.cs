@@ -10,6 +10,6 @@ namespace StudentsData.Models
 		public int Id { get; set; }
 		public string  Name { get; set; }
 		public string Class { get; set; }
-		public FatherDetail Father { get; set; }
+		public List<FatherDetail> Father { get; set; }
 	}
 }

@@ -11,9 +11,10 @@ using System;
 namespace StudentsData.Migrations
 {
     [DbContext(typeof(StudentsDataContext))]
-    partial class StudentsDataContextModelSnapshot : ModelSnapshot
+    [Migration("20180325145635_FatherEdit")]
+    partial class FatherEdit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,11 +32,7 @@ namespace StudentsData.Migrations
 
                     b.Property<string>("FatherName");
 
-                    b.Property<int?>("StudentsId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("StudentsId");
 
                     b.ToTable("FatherDetail");
                 });
@@ -47,18 +44,22 @@ namespace StudentsData.Migrations
 
                     b.Property<string>("Class");
 
+                    b.Property<int?>("FatherId");
+
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FatherId");
+
                     b.ToTable("Students");
                 });
 
-            modelBuilder.Entity("StudentsData.Models.FatherDetail", b =>
+            modelBuilder.Entity("StudentsData.Models.Students", b =>
                 {
-                    b.HasOne("StudentsData.Models.Students")
-                        .WithMany("Father")
-                        .HasForeignKey("StudentsId");
+                    b.HasOne("StudentsData.Models.FatherDetail", "Father")
+                        .WithMany()
+                        .HasForeignKey("FatherId");
                 });
 #pragma warning restore 612, 618
         }
