@@ -55,6 +55,7 @@ namespace StudentsData.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Students students)
         {
+			students.Father[0].Student = students;
             if (ModelState.IsValid)
             {
                 _context.Add(students);
@@ -73,6 +74,8 @@ namespace StudentsData.Controllers
             }
 
             var students = await _context.Students.SingleOrDefaultAsync(m => m.Id == id);
+			
+			students.Father = new List<FatherDetail> { new FatherDetail { Class = "father", Id = 6 } };
             if (students == null)
             {
                 return NotFound();
@@ -85,7 +88,7 @@ namespace StudentsData.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Class")] Students students)
+        public async Task<IActionResult> Edit(int id,Students students)
         {
             if (id != students.Id)
             {
